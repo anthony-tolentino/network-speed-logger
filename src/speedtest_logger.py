@@ -65,7 +65,6 @@ with open(log_path, "a") as f:
 
 # Append to CSV
 df = pd.DataFrame([record])
-#df.to_csv(csv_file, mode='a', header=not file_exists, index=False)
 df.to_csv(csv_file, mode="a", header=False, index=False)
 
 print(f"Logged to CSV: ↓ {download_speed} Mbps | ↑ {upload_speed} Mbps | 🕒 {ping} ms")

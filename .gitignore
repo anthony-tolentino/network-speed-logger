@@ -10,11 +10,11 @@ venv/
 .env/
 
 # Logs
-logs/
+logs/*
 !logs/.gitkeep
 
 # Data
-data/
+data/*
 !data/.gitkeep
 
 # OS files
