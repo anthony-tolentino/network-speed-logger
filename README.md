@@ -11,14 +11,14 @@ A Python project that tests and logs internet speed over time using [speedtest-c
 ## Folder Structure
 ```
 network-speed-logger/
-├── logs/                    # Cron and deub logs from speed tests
+├── logs/                    # Cron and debug logs from speed tests
 │   └── cron.log
 │   └── debug.log
 ├── data/                    # CSV with data from speed tests
 │   └── speed_data.csv
-├── .env/                    # Virtual environment (ignored by git)
+├── .venv/                    # Virtual environment (ignored by git)
 ├── src                      # Main script
-│   └── speedtest_logger.csv 
+│   └── speedtest_logger.py 
 ├── requirements.txt         # Project dependencies
 ├── .gitignore               # Git ignore file
 └── README.md                # Project documentation
@@ -35,8 +35,8 @@ cd network-speed-logger
 
 Set up a virtual environment and install dependencies:
 ```
-python -m venv venv
-source venv/bin/activate   # macOS/Linux
+python -m venv .venv
+source .venv/bin/activate   # macOS/Linux
 venv\Scripts\activate      # Windows
 
 pip install -r requirements.txt
@@ -45,17 +45,17 @@ pip install -r requirements.txt
 ## Usage
 Run the logger manually:
 ```
-python speedtest_logger.py
+python3 src/speedtest_logger.py
 ```
 
-Automate with a cron job (example: every hour):
+Automate with a cron job (example: every 15 minutes):
 ```
-0 * * * * /path/to/python /path/to/speedtest_logger.py
+*/15 * * * * /path/to/python /path/to/speedtest_logger.py
 ```
 
 Results are stored in:
 ```
-data/speedtest_results.csv
+data/speed_data.csv
 ```
 
 ## Example Output
