@@ -37,7 +37,7 @@ Set up a virtual environment and install dependencies:
 ```
 python -m venv .venv
 source .venv/bin/activate   # macOS/Linux
-venv\Scripts\activate      # Windows
+.venv\Scripts\activate      # Windows
 
 pip install -r requirements.txt
 ```
@@ -50,7 +50,7 @@ python3 src/speedtest_logger.py
 
 Automate with a cron job (example: every 15 minutes):
 ```
-*/15 * * * * /path/to/python /path/to/speedtest_logger.py
+*/15 * * * * /path/to/python /path/to/network-speed-test/src/speedtest_logger.py
 ```
 
 Results are stored in:
