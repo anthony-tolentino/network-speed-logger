@@ -4,13 +4,8 @@ import os
 #import sqlite3
 from datetime import datetime
 
-# Test to see if cron is running script
-log_path = "/home/donpi/projects/network_speed_logger/logs/debug.log"
-with open(log_path, "a") as f:
-    f.write(f"{datetime.now()} - Script started\n")
-
 # Find project root
-# Script is found in src/, project root is one level ip
+# Script is found in src/, project root is one level up
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,6 +13,18 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 data_folder = os.path.join(script_dir, "..", "data")
 data_folder = os.path.abspath(data_folder)
 os.makedirs(data_folder, exist_ok=True)
+
+# Ensure log folder exists
+log_folder = os.path.join(script_dir, "..", "logs")
+log_folder = os.path.abspath(log_folder)
+os.makedirs(log_folder, exist_ok=True)
+
+# Log file path
+log_path = os.path.join(log_folder, "debug.log")
+
+# Capture log when script starts
+with open(log_path, "a") as f:
+    f.write(f"{datetime.now()} - Script started\n")
 
 # CSV file path
 csv_file = os.path.join(data_folder, "speed_data.csv")
@@ -31,7 +38,7 @@ if not os.path.isfile(csv_file):
     df = pd.DataFrame(columns=["timestamp", "download_mbps", "upload_mbps", "ping_ms"])
     df.to_csv(csv_file, index=False)
 
-#initialize
+# Initialize
 s = speedtest.Speedtest()
 s.get_best_server()
 
@@ -40,9 +47,6 @@ download_speed = round(s.download() / 1_000_000, 2) # Mbps
 upload_speed = round(s.upload() / 1_000_000, 2) # Mbps
 ping = s.results.ping
 timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-# Test output
-# print(download_speed, upload_speed, ping, timestamp)
 
 # Create record
 record = {
