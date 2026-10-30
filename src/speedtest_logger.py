@@ -2,7 +2,7 @@ import speedtest
 import pandas as pd
 import os
 #import sqlite3
-from datetime import datetime
+from datetime import datetime, UTC
 
 # Find project root
 # Script is found in src/, project root is one level up
@@ -35,7 +35,13 @@ csv_file = os.path.join(data_folder, "speed_data.csv")
         f.write("timestamp,download_mbps,upload_mbps,ping_ms\n")
 '''
 if not os.path.isfile(csv_file):
-    df = pd.DataFrame(columns=["timestamp", "download_mbps", "upload_mbps", "ping_ms"])
+    df = pd.DataFrame(columns=[
+        "timestamp_utc", 
+        "download_mbps", 
+        "upload_mbps", 
+        "ping_ms", 
+        "status", 
+        "server_name"])
     df.to_csv(csv_file, index=False)
 
 # Initialize
@@ -46,7 +52,7 @@ s.get_best_server()
 download_speed = round(s.download() / 1_000_000, 2) # Mbps
 upload_speed = round(s.upload() / 1_000_000, 2) # Mbps
 ping = s.results.ping
-timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+timestamp = datetime.now(UTC)
 
 # Create record
 record = {
